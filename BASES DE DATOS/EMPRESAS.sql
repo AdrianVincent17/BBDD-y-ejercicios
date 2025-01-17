@@ -139,48 +139,40 @@
 
 #--23. Visualizar la suma de los salarios para cada oficio de los empleados del departamento de VENTAS.
 
-
 	SELECT
 	FROM
 
 #--24. Listar, en orden alfabético, aquellos empleados que no trabajen ni en Madrid ni en Barcelona.
-
 
 	SELECT
 	FROM
 
 #--25. Listar los nombres de los departamentos que tengan algún empleado con fecha de alta anterior a 1992.
 
-
 	SELECT
 	FROM
 
 #--26. Obtener los departamentos y sus nombres, siempre que haya más de un empleado trabajando en ellos.
-
 
 	SELECT
 	FROM
 
 #--27. Listar las localidades donde existan departamentos con empleados cuya comisión supere el 10% del salario.
 
-
 	SELECT
 	FROM
 
 #--28. Seleccionar aquellos departamentos en los que al menos exista un empleado con comisión.
-
 
 	SELECT
 	FROM
 
 #--29. Listar aquellos departamentos en los que todos sus empleados carezcan de información sobre su comisión.
 
-
 	SELECT
 	FROM
 
 #--30. Obtener apellido y oficio de los empleados que tienen el mismo oficio que los que trabajan en el departamento de ‘INVESTIGACIÓN’.
-
 
 	SELECT
 	FROM
@@ -190,15 +182,12 @@
 	SELECT
 	FROM
 
-
 #--32. Visualizar los números de departamentos en los que el salario medio de sus empleados sea mayor o igual que la media de todos los salarios.
 
 	SELECT
 	FROM
 
-
 #--33. Visualizar el departamento con más presupuesto asignado para pagar el salario y la comisión de sus empleados.
-
 
 	SELECT
 	FROM
