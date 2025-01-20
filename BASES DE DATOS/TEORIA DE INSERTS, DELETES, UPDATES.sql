@@ -96,9 +96,47 @@ INSERT INTO Partidos VALUES(0,1,6,80,72,CURRENT_DATE());
 
 INSERT INTO Partidos
 
-SELECT 0,elocal, evisit, 75,74, CURRENT_DATE()
-FROM Partidos
-WHERE elocal IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE 'Real Madrid') AND evisit IN(SELECT id_equipo FROM Equipos WHERE nombre LIKE 'Unicaja');
+SELECT 0,E1.id_equipo, E2.id_equipo, 75,74, CURRENT_DATE()
+FROM Equipos E1, Equipos E2
+WHERE E1.nombre LIKE 'Real Madrid' AND E2.nombre LIKE 'Unicaja';
 
 #--Insertar el partido jugado hoy entre los quipos 1 y 4, 
 #-- con el mismo resultado que el partido jugado entre UCAM Murcia y Valencia Basket 
+
+INSERT INTO Partidos
+SELECT 0,1,4,puntosL, puntosV,CURRENT_DATE()
+FROM Partidos
+WHERE elocal IN(SELECT id_equipo FROM Equipos WHERE nombre LIKE 'UCAM Murcia') AND evisit IN(SELECT id_equipo FROM Equipos WHERE nombre LIKE 'Valencia Basket');
+
+#--REPLACE
+
+REPLACE INTO Partidos VALUES(1,1,2,79,76,'2025-01-11');
+
+#--IMPORTAR DATOS(CARGA MASIVA)
+
+LOAD DATA INFILE 'C:\\Users\\AdrianV\\Downloads\\Jugadores.txt' INTO TABLE Jugadores;
+
+#-- UPDATE (MODIFICACIONES)
+
+#--Establecer como pabellon de Unicaja el 'Martin Carpena'
+
+UPDATE Equipos
+SET pabellon='Martin Carpena'
+WHERE nombre LIKE 'Unicaja';
+
+#--Establecer com pabellon de Baskonia el 'Buesa Arena'
+
+UPDATE equipos
+SET pabellon='Buesa Arena'
+WHERE nombre LIKE 'Baskonia';
+
+#--Cambiar el resultado del partido jugado entre los equipos 3 y 4, con resultado 84-86
+
+UPDATE Partidos
+SET puntosL=84, puntosV=86
+WHERE elocal=3 AND evisit=4;
+
+#--aumentar el salario de todos los jugadores 1000
+
+UPDATE Jugadores
+SET salario=salario+1000;
