@@ -48,7 +48,7 @@ equipo 			INTEGER 			NOT NULL,
 
 PRIMARY KEY(id_jugador),
 
-FOREIGN KEY(id_capitan) REFERENCES 	Jugadores(id_jugador)
+FOREIGN KEY(id_capitan) REFERENCES Jugadores(id_jugador)
 	ON DELETE CASCADE
 	ON UPDATE SET NULL,
 FOREIGN KEY(equipo) REFERENCES Equipos(id_equipo)
@@ -59,7 +59,7 @@ FOREIGN KEY(equipo) REFERENCES Equipos(id_equipo)
 	
 #--Inserccion de registros uno a uno 
 	
---No hace falta que pongas el esquema despues de meter la tabla(es solo para acordarte que los datos si se meten en orden)
+#--No hace falta que pongas el esquema despues de meter la tabla(es solo para acordarte que los datos si se meten en orden)
 INSERT INTO Equipos(id_equipo, nombre, ciudad, pabellon) VALUES(0, 'Real Madrid', 'Madrid', 'Movistar Arena'); 
 INSERT INTO Equipos VALUES(0, 'FC Barcelona', 'Barcelona', 'Palau Blaugrana');
 
@@ -69,10 +69,12 @@ INSERT INTO Equipos VALUES (0, 'UCAM Murcia', 'Murcia', 'Palacion de los deporte
 
 #--Insertamos un registro que contiene un campo nulo
 
---si metemos menos campos porque alguno acepta nulos entonces si tienes que poner el esquema detras de tabla corresponiente
+#--si metemos menos campos porque alguno acepta nulos entonces si tienes que poner el esquema detras de tabla corresponiente
+
 INSERT INTO Equipos(id_equipo, nombre, ciudad) VALUES (0, 'Unicaja', 'Malaga');
 
 #-- Insertamos un registro especificando el nombre y el valor de las columnas con SET 
+
 INSERT INTO Equipos SET nombre='Baskonia', ciudad='Vitoria';
 
 #--Insercciones de valores procedentes de una consulta SELECT 
@@ -100,13 +102,14 @@ SELECT 0,E1.id_equipo, E2.id_equipo, 75,74, CURRENT_DATE()
 FROM Equipos E1, Equipos E2
 WHERE E1.nombre LIKE 'Real Madrid' AND E2.nombre LIKE 'Unicaja';
 
-#--Insertar el partido jugado hoy entre los quipos 1 y 4, 
+#--Insertar el partido jugado hoy entre los quipos 1 y 4
 #-- con el mismo resultado que el partido jugado entre UCAM Murcia y Valencia Basket 
 
 INSERT INTO Partidos
 SELECT 0,1,4,puntosL, puntosV,CURRENT_DATE()
 FROM Partidos
-WHERE elocal IN(SELECT id_equipo FROM Equipos WHERE nombre LIKE 'UCAM Murcia') AND evisit IN(SELECT id_equipo FROM Equipos WHERE nombre LIKE 'Valencia Basket');
+WHERE elocal IN(SELECT id_equipo FROM Equipos WHERE nombre LIKE 'UCAM Murcia') AND evisit IN(SELECT id_equipo FROM Equipos WHERE nombre LIKE 
+'Valencia Basket');
 
 #--REPLACE
 
@@ -140,3 +143,25 @@ WHERE elocal=3 AND evisit=4;
 
 UPDATE Jugadores
 SET salario=salario+1000;
+
+#--Bajar el salario 1000€ a los jugadores del Madrid
+
+UPDATE Jugadores
+SET salario=salario-1000
+WHERE equipo IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE '%Madrid%');
+
+#--Borrado de registros:  DELETE
+
+DELETE FROM Jugadores
+WHERE nombre LIKE 'Markus' AND apellido LIKE 'Howard';
+
+#--Eliminar los partidos donde Unicaja haya jugado como equipo visitante
+
+DELETE FROM Partidos
+WHERE evisit IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE 'Unicaja');
+
+#--eliminar todos los partidos de UCAM Murcia
+
+DELETE FROM Partidos 
+where evisit IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE 'UCAM Murcia') OR elocal IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE 'UCAM Murcia');
+
