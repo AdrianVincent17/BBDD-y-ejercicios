@@ -163,5 +163,38 @@ WHERE evisit IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE 'Unicaja');
 #--eliminar todos los partidos de UCAM Murcia
 
 DELETE FROM Partidos 
-where evisit IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE 'UCAM Murcia') OR elocal IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE 'UCAM Murcia');
+WHERE evisit IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE 'UCAM Murcia') OR elocal IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE 'UCAM Murcia');
+
+#--1) BORRADO RESTRINGIDO / BORRADO CASCADA
+
+#--Intentamos borrar al Baskonia, pero no nos dejara por que tiene restriccion por borrado restringido(en la tabla Jugadores)
+
+DELETE FROM Equipos
+WHERE nombre LIKE 'Baskonia';
+
+#--Para borrarlo, antes necesitamos borrar (o cambiar de equipo) todos los jugadores de ese equipo
+
+DELETE FROM Jugadores
+WHERE equipo IN (SELECT id_equipo FROM Equipos WHERE nombre LIKE 'Baskonia');
+
+#--Borramos el equipo Baskonia qu ehora si nos tiene que dejar borrar y ademas se borraran todos sus partidos (por el borrado en cascada)
+
+DELETE FROM Equipos
+WHERE nombre LIKE 'Baskonia';
+
+#--Resultados
+#-- 1) Borra al Baskonia de la tabla Equipos
+#-- 2) Borra todos los partidos del Baskonia en la tabla Partidos (B:C)
+
+SELECT * FROM Partidos;
+SELECT * FROM Equipos;
+SELECT * FROM Jugadores;
+
+#-- 2) BORRADO ANULAR (SET NULL)
+
+#--Borramos a Sergio Llul que es el capitan del Real Madrid
+
+DELETE FROM Jugadores
+WHERE nombre LIKE 'Sergio' AND apellido LIKE 'Llull';
+
 
