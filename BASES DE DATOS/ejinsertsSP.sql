@@ -55,13 +55,16 @@ INSERT INTO S VALUES('S2', 'Jaimes','10','Paris');
 INSERT INTO S VALUES('S3', 'Bernal','30','Paris');
 INSERT INTO S VALUES('S4', 'Corona','20','Londres');
 INSERT INTO S VALUES('S5', 'Aldana',NULL,'Atenas');
+
 #--3
 
 LOAD DATA INFILE 'C:\\Users\\AdrianV\\Downloads\\P.txt' INTO TABLE P;
+LOAD DATA INFILE 'C:\\Users\\Adrian Vincent\\Downloads\\P.txt' INTO TABLE P;
 
 #--4
 
 LOAD DATA INFILE 'C:\\Users\\AdrianV\\Downloads\\SP.txt' INTO TABLE SP;
+LOAD DATA INFILE 'C:\\Users\\Adrian Vincent\\Downloads\\SP.txt' INTO TABLE SP;
 
 #--5 
 
@@ -79,13 +82,56 @@ FROM P;
 
 #--8
 
+INSERT INTO SP
+SELECT 'S7', pn, cant
+FROM SP
+WHERE sn = 'S2';
 
 #--9
+
+INSERT INTO SP
+SELECT 'S7',pn, cant
+FROM SP
+WHERE sn = 'S1' AND pn='P4';
+
 #--10
+
+UPDATE P
+SET peso= peso-1
+WHERE color LIKE 'azul';
+
 #--11
+
+UPDATE SP
+SET cant=300
+WHERE sn = 'S6' AND pn = 'P3';
+
 #--12
+
+UPDATE SP
+SET cant=cant*2
+WHERE sn = 'S6' AND pn IN('P1','P2');
+
 #--13
+
+UPDATE SP
+SET cant=cant+100
+WHERE sn='S7';
+
 #--14
+
+UPDATE SP
+SET cant=cant+25
+WHERE pn IN(SELECT pn FROM P WHERE peso IN(SELECT MAX(peso) FROM P));
+
 #--15
+
+DELETE FROM SP
+WHERE pn IN(SELECT pn FROM P WHERE peso IN(SELECT MIN(peso) FROM P));
+
 #--16
+
+DELETE FROM SP
+WHERE sn = 'S7';
+
 
