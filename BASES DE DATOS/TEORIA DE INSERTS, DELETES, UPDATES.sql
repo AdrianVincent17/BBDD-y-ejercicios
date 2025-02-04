@@ -197,4 +197,11 @@ SELECT * FROM Jugadores;
 DELETE FROM Jugadores
 WHERE nombre LIKE 'Sergio' AND apellido LIKE 'Llull';
 
+#--BLOQUEO DE TABLAS
+
+LOCK TABLES Equipos READ;  #-- no se podran hacer modificaciones pero si se podra leer
+LOCK TABLES Equipos WRITE; #-- no se podra ni leer ni escribir en esa tabla 
+
+UNLOCK TABLES; #-- desbloquear tablas, comando unico que desbloquea el read y el write 
+
 
