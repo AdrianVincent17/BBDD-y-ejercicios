@@ -197,11 +197,58 @@ SELECT * FROM Jugadores;
 DELETE FROM Jugadores
 WHERE nombre LIKE 'Sergio' AND apellido LIKE 'Llull';
 
+#-- TRANSACCIONES
+
+-- BEGIN lo pones y despues haces todos los cambios que quieras, puedes ir viendo 
+-- como estan quedadno las tablas y todo y en cuanto pongas el COMMIT todos esos
+-- cambios se ejecutan, pero si queremos borrar todo lo que hemos hecho, entonces
+-- no pones el COMMIT y tienes que poner el ROLLBACK y todo lo que hayas cambiado 
+-- con el BEGIN se te quita.
+
+BEGIN;
+
+DELETE FROM juadores 
+WHERE equipo=(SELECT id_equipo FROM equipos WHERE nombre='Unicaja');
+
+DELETE FROM equipos 
+WHERE nombre='Unicaja';
+
+COMMIT; #--Si pusieramos un ROLLBACK entonces todo volveria a antes de todos los cambios 
+
 #--BLOQUEO DE TABLAS
 
 LOCK TABLES Equipos READ;  #-- no se podran hacer modificaciones pero si se podra leer
 LOCK TABLES Equipos WRITE; #-- no se podra ni leer ni escribir en esa tabla 
 
 UNLOCK TABLES; #-- desbloquear tablas, comando unico que desbloquea el read y el write 
+
+#-- LOCK TABLES 
+-- READ, se asocia al SELECT por que con READ solo podemos ver los datos
+LOCK TABLES Equipos READ;
+
+-- No me deja modificar nada por que la tabla Equipo esta bloqueada
+UPDATE Equipos 
+SET ciudad='Murcia'
+WHERE nombre LIKE 'Real Madrid';
+
+-- Para desbloquear las tablas 
+UNLOCK TABLES;
+
+-- WRITE, se asocia el INSERT, UPDATE y DELETE, ya que podemos escribir/modificar los datos.
+LOCK TABLES Equipos WRITE; -- Cuando se bloquea una tabla te deja hacer el SELECT Y MODIFICAR 
+						   -- la tabla pero de esa tabla y en ese cliente. 
+
+SELECT * FROM Equipos; --Si deja hacer la consulta
+
+SELECT * FROM Partidos; --No deja hacer la consulta por que se ha puesto un bloqueo
+
+-- Para desbloquear las tablas 
+UNLOCK TABLES;
+
+SELECT * FROM Partidos; --Ahora si me deja hacer consultas por que he desbloqeado.
+
+
+
+
 
 
