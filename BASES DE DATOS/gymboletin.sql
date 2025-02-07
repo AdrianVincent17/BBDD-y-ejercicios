@@ -32,12 +32,12 @@ FOREIGN KEY(monitor) REFERENCES MONITOR(dni)
 		ON UPDATE CASCADE,
 FOREIGN KEY(sala) REFERENCES SALA(codSala)
 		ON DELETE SET NULL
-		ON UPDATE CASCADE	
+		ON UPDATE CASCADE
 );
 
 CREATE TABLE SOCIO(
 numSocio 		CHAR(10) 		NOT NULL,
-dni 			CHAR (10) 		NOT NULL,
+dni 			CHAR(10) 		NOT NULL,
 nombre 			CHAR(50) 		NOT NULL,
 tlfno 			CHAR(10) 		NOT NULL,
 ctabanco 		CHAR(22),
@@ -112,7 +112,7 @@ SET metros=metros-10;
 
 SELECT * FROM SALA;
 
-#--8 cambia las clases de los jueves a los lunes
+#--8 cambia las clases de los lunes a los jueves
 UPDATE CLASE
 SET dia='jueves'
 WHERE dia LIKE 'lunes';
