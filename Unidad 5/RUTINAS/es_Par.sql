@@ -1,0 +1,21 @@
+
+
+DROP PROCEDURE IF EXISTS es_Par;
+
+DELIMITER $$
+
+CREATE PROCEDURE es_Par(num INT)
+
+BEGIN 
+	IF(esPar(num)) THEN
+		SELECT CONCAT(num," Es par") AS PAR;
+	ELSE 
+		SELECT CONCAT(num," Es impar") AS IMPAR;
+	END IF;
+
+END $$
+
+DELIMITER ;
+
+
+CALL es_Par();
