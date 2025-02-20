@@ -1,0 +1,34 @@
+
+
+DROP FUNCTION IF EXIST fechaOk;
+
+DELIMITER $$
+
+CREATE FUNCTION fechaOk(a INT,m INT,d INT) RETURNS BOOLEAN
+
+BEGIN 
+	DECLARE diasmes INT;
+		IF(a=0) THEN 
+			RETURN FALSE;
+		END IF;
+		IF(m<1 OR m>12) THEN
+			RETURN FALSE;
+		END IF;
+		IF(m=4 OR m=6 OR m=9 OR m=11) THEN
+			SET diasmes=30;
+		ELSEIF(m=2) THEN
+			SET diasmes=28;
+		ELSEIF(m=1 OR m=3 OR m=5 OR m=7 OR m=8 OR m=10 OR m=12) THEN 
+			SET diasmes=31;
+		END IF;
+		
+		IF(d<1 OR d>diasmes)THEN 
+			RETURN FALSE;
+		END IF;
+		RETURN TRUE;
+
+END $$
+
+DELIMITER ;
+
+SELECT fechaOk() AS "FECHA_CORRECTA";
