@@ -22,7 +22,7 @@ BEGIN
 			WHEN 12 THEN SET mes="Diciembre";
 		END CASE;
 		
-		SELECT CONCAT(day(now()),mes,year(now())) AS "FECHA_ACTUAL";
+		SELECT CONCAT(day(now())," de ",mes," de ",year(now())) AS "FECHA_ACTUAL";
 			
 
 END $$
