@@ -14,10 +14,12 @@ BEGIN
 	DECLARE total INT;
 	
 	CASE month(f)
+	
 		WHEN 1 THEN SET total=Day(f)+0;
 		WHEN 2 THEN SET total=Day(f)+31;
 		WHEN 3 THEN SET total=Day(f)+31+28;
 		WHEN 4 THEN SET total=Day(f)+31+28+31;
+		WHEN 5 THEN SET total=Day(f)+31+28+31+30;
 		WHEN 6 THEN SET total=Day(f)+31+28+31+30+31;
 		WHEN 7 THEN SET total=Day(f)+31+28+31+30+31+30;
 		WHEN 8 THEN SET total=Day(f)+31+28+31+30+31+30+31;

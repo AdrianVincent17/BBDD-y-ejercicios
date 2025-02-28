@@ -41,7 +41,7 @@ BEGIN
 			SET horamin=CONCAT(horamin,s);
 		END IF;
 			
-		SELECT horamin AS "Minuto después";
+		SELECT horamin AS "Minuto antes";
 	END IF;
 END $$
 DELIMITER ;

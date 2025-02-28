@@ -5,6 +5,7 @@
 #-- b) si termina en 00, es divisible entre 400(2000 y 2400 si son bisiestos, 2100, 2200, 2300 no)
 
 
+
 DROP FUNCTION IF EXISTS bisiesto;
 
 DELIMITER $$
@@ -12,11 +13,10 @@ DELIMITER $$
 CREATE FUNCTION bisiesto(a INT) RETURNS BOOLEAN
 
 BEGIN
-
+	
 
 	IF(a%4!=0) THEN 
 		RETURN FALSE;
-		
 	ELSE 
 		IF(a%100=0) THEN 
 			IF(a%400=0) THEN 

@@ -9,9 +9,6 @@ CREATE DATABASE envios;
 #-- Empezar a utilizar la base de datos
 USE envios;
 
-#--mostrar las tablas de la BD
-show tables;
-
 #--Creamos la tabla de los PROVEEDORES
 CREATE TABLE S (
 	sn 		VARCHAR(3),
@@ -47,6 +44,12 @@ CREATE TABLE SP (
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
+
+#--mostrar las tablas de la BD
+show tables;
+
+#--Consultar la descripcion de una tabla
+DESCRIBE S;
 
 #--2
 

@@ -6,13 +6,13 @@ DELIMITER $$
 CREATE FUNCTION esdivisible(numerador INT, denominador INT) RETURNS BOOLEAN
 
 BEGIN 
-	DECLARE esdiv BOOLEAN;
+
 	IF (numerador%denominador=0) THEN
-		SET esdiv=TRUE;
+		 RETURN TRUE;
 	ELSE
-		SET esdiv=FALSE;
+		RETURN FALSE;
 	END IF;
-	RETURN esdiv;
+	
 	
 END $$
 
