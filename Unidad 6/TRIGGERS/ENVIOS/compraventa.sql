@@ -68,6 +68,7 @@ SELECT @stock;
 /*trigger realizar venta*/
 
 DELIMITER $$
+
 CREATE TRIGGER realizar_venta
 AFTER INSERT ON venta
 FOR EACH ROW
@@ -83,11 +84,12 @@ DELIMITER ;
 INSERT INTO venta VALUES("M01",NOW(),2,120.0);
 SELECT @maxVenta;
 
-INSERT INTO venta VALUES("M01","",1,100.0);
+INSERT INTO venta VALUES("S01","",1,100.0);
 SELECT @maxVenta;
 
-INSERT INTO venta VALUES("M01",NOW(),2,120.0);
+INSERT INTO venta VALUES("M02",NOW(),2,135.0);
 SELECT @maxVenta;
 
-INSERT INTO venta VALUES("M01",NOW(),2,120.0);
+INSERT INTO venta VALUES("M03",NOW(),4,105.0);
 SELECT @maxVenta;
+
