@@ -8,11 +8,18 @@ USE notas;
 
 CREATE TABLE Asignatura(
 codAsig 	VARCHAR(10),
-nomAsig 	VARCHAR(20) NOT NULL,
+nomAsig 	VARCHAR(50) NOT NULL,
 curso 		VARCHAR(10) NOT NULL,
 horas 		INTEGER,
 PRIMARY KEY(codAsig)
 );
+
+INSERT INTO Asignatura VALUES("BBDD","BASES DE DATOS","1o DAW",6);
+INSERT INTO Asignatura VALUES("SSII","SISTEMAS INFORMATICOS","1o DAW",8);
+INSERT INTO Asignatura VALUES("EEDD","ENTORNOS DE DESARROLLO","2o DAW",3);
+INSERT INTO Asignatura VALUES("DIW","DISEÑO INTERFACES WEB","2o DAW",6);
+
+SELECT * FROM Asignatura;
 
 CREATE TABLE Alumno(
 codAlum 	INTEGER 	AUTO_INCREMENT,
@@ -41,6 +48,8 @@ FOREIGN KEY(codAsig) REFERENCES Asignatura(codAsig)
 	ON DELETE CASCADE
 	ON UPDATE CASCADE
 );
+
+
 /*Creamos triggers*/
 
 SET @aprobados=0;
@@ -61,20 +70,22 @@ END $$
 
 DELIMITER ;
 
-INSERT INTO Nota VALUES(1,"BD",5);
-INSERT INTO Nota VALUES(4,"BD",9);
-INSERT INTO Nota VALUES(3,"BD",6);
-INSERT INTO Nota VALUES(2,"BD",4);
 
-INSERT INTO Nota VALUES(1,"SI",4);
-INSERT INTO Nota VALUES(4,"SI",8);
-INSERT INTO Nota VALUES(3,"SI",2);
-INSERT INTO Nota VALUES(2,"SI",5);
 
-INSERT INTO Nota VALUES(1,"PR",8);
-INSERT INTO Nota VALUES(4,"PR",5);
-INSERT INTO Nota VALUES(3,"PR",9);
-INSERT INTO Nota VALUES(2,"PR",5);
+INSERT INTO Nota VALUES(1,"BBDD",5);
+INSERT INTO Nota VALUES(4,"BBDD",9);
+INSERT INTO Nota VALUES(3,"BBDD",6);
+INSERT INTO Nota VALUES(2,"BBDD",4);
+
+INSERT INTO Nota VALUES(1,"SSII",4);
+INSERT INTO Nota VALUES(4,"SSII",8);
+INSERT INTO Nota VALUES(3,"SSII",2);
+INSERT INTO Nota VALUES(2,"SSII",5);
+
+INSERT INTO Nota VALUES(1,"DIW",8);
+INSERT INTO Nota VALUES(4,"DIW",5);
+INSERT INTO Nota VALUES(3,"DIW",9);
+INSERT INTO Nota VALUES(2,"DIW",5);
 
 SELECT @aprobados;
 SELECT @suspensos;
@@ -89,11 +100,12 @@ BEGIN
 		SET @aprobados=@aprobados-1;
 	ELSE 
 		SET @suspensos=@suspensos-1;
+	END IF;
 END $$
 
 DELIMITER ;
 
-DELETE FROM Nota WHERE codAsig LIKE "SI";
+DELETE FROM Nota WHERE codAsig LIKE "SSII";
 SELECT @aprobados;
 SELECT @suspensos;
 
@@ -103,13 +115,31 @@ CREATE TRIGGER evaluar_actualizar
 BEFORE UPDATE ON Nota
 FOR EACH ROW 
 BEGIN 
-	IF (OLD.nota BETWEEN 5 AND 10) AND (NEW.nota <5) THEN
-		SET @aprobados=@aprobados-1;
-		SET @suspensos=@suspensos+1;
-	ELSE 
-		SET @aprobados=@aprobados+1;
-		SET @suspensos=@suspensos-1;
+	IF OLD.nota >= 5 THEN
+		IF NEW.nota < 5 THEN
+			SET @aprobados=@aprobados-1;
+			SET @suspensos=@suspensos+1;
+		END IF;
+	ELSE
+		IF NEW.nota >= 5 THEN
+			SET @aprobados=@aprobados+1;
+			SET @suspensos=@suspensos-1;
+		END IF;
 	END IF;
 END $$
 
 DELIMITER ;
+
+UPDATE Nota
+SET nota=4
+WHERE codAlum=1;
+
+SELECT @aprobados;
+SELECT @suspensos;
+
+UPDATE Nota
+SET nota=nota+1
+WHERE codAlum=2;
+
+SELECT @aprobados;
+SELECT @suspensos;
