@@ -22,4 +22,4 @@ END $$
 
 DELIMITER ;
 
-SELECT esPrimo();
+SELECT esPrimo(7);

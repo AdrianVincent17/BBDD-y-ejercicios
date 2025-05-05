@@ -12,29 +12,47 @@ DESCRIBE cuadro;
 
 
 #--1 inserta datos en la tabla museo
+
+LOCK TABLE museo WRITE;
+
 INSERT INTO museo VALUES(1,"Reina Sofia","Madrid","C/ Santa Isabel, 52",80000);
 INSERT INTO museo VALUES(2,"Museo del Prado","Madrid","C/ Ruiz de Alarcon, 23",110000);
 INSERT INTO museo VALUES(3,"Thyssen-Bornemisza","Madrid","Paseo del Prado, 8",NULL);
 
+UNLOCK TABLES;
+
 SELECT * FROM museo;
 
 #--2 inserta datos en la tabla pintor
+
+LOCK TABLE pintor WRITE;
+
 INSERT INTO pintor VALUES("Velazquez","España","Madrid",NULL,NULL,NULL);
 INSERT INTO pintor VALUES("Picasso","España","Malaga",NULL,NULL,NULL);
 INSERT INTO pintor VALUES("Goya","España","Zaragoza",NULL,NULL,NULL);
+
+UNLOCK TABLES;
 
 SELECT * FROM pintor;
 
 
 #--3 inserta datos en la tabla cuadro
+
+LOCK TABLE pintor WRITE;
+
 INSERT INTO cuadro VALUES(1,"Las Meninas",1656,"Oleo",2,"Velazquez");
 INSERT INTO cuadro VALUES(2,"Guernica",1937,"Oleo",1,"Picasso");
 INSERT INTO cuadro VALUES(3,"La vendimia",NULL,"Oleo",2,"Goya");
 INSERT INTO cuadro VALUES(4,"El quitasol",1777,"Oleo",2,"Goya");
 
+UNLOCK TABLES;
+
 SELECT * FROM cuadro;
 
 #--4 inserta en la tabla pintor a juan gris el cual tiene el mismo pais y ciudad que velazquez
+
+
+
 INSERT INTO pintor(nomPin,paisPin,ciudadPin)
 SELECT "Juan Gris",paisPin,ciudadPin
 FROM pintor
@@ -72,6 +90,8 @@ SELECT * FROM cuadro;
 
 
 #--9 borra los cuadros que daten del año 1900 en adelante
+
+
 BEGIN;
 
 DELETE FROM cuadro
